@@ -5,17 +5,52 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
 	<title>Document</title>
 	<style>
+	*{
+		margin: 0;
+		padding:0;
+	}
 		#app{
-			width: 500px;
-			height: 500px;
+			width: 100%;
+			height: 300px;
 			background: #ccc;
+		}
+		#app2{
+			width: 100%;
+			height:200px;
+			position: absolute;
+			top:300px;
+			left:0;
 
+		}
+		#app2 ul{
+			width: 400%;
+			height:200px;
+			position: relative;
+		}
+		#app2 ul li{
+			width: 25%;
+			height:200px;
+			border: 1px solid red;
+			list-style:none;
+			box-sizing: border-box;
+			float:left;
 		}
 	</style>
 </head>
 <body>
 		<div id="app">
-			aaaa
+			aaaa	
+			<p>浏览器对于点击事件有300ms延迟</p>
+		<p>点透:就是点击一个图片下边如果有a链接会直接跳转,办法就是阻止默认</p>
+		</div>
+	
+		<div id="app2">
+			<ul>
+				<li>1111</li>
+				<li>2222</li>
+				<li>3333</li>
+				<li>4444</li>
+			</ul>
 		</div>
 <script type="text/javascript">
 	
@@ -24,10 +59,46 @@
 	// 	console.log(e.target)
 	// })
 	box.addEventListener('touchstart',function(e){
+		console.log(e.touches)
+	})
+	box.addEventListener('touchmove',function(e){
 		box.innerHTML=e.targetTouches.length
 	})
 	box.addEventListener('touchend',function(e){
 		console.log(e.changedTouches.length)
+	})
+
+
+
+	var box2=document.getElementById('app2');
+	let left=0;
+	let _width=375;
+	let c=0;
+	let n=0;
+	box2.addEventListener('touchstart',function(e){
+		e.preventDefault();
+		//获取当前点击位置
+		c=e.changedTouches[0].pageX;
+		left=box2.offsetLeft;
+		console.log(c,left)
+	})
+	box2.addEventListener('touchmove',function(e){
+		e.preventDefault();
+		//获取当前移动位置
+		box2.style.left=left+e.changedTouches[0].pageX-c+'px';
+		console.log(left)
+	})
+	box2.addEventListener('touchend',function(e){
+		e.preventDefault();
+		n=Math.round(box2.offsetLeft/375);
+		if(n<=-4){
+			n=-3
+		}
+		if(n>=0){
+			n=0
+		}
+		console.log(n)
+		box2.style.left=n*375+"px"
 	})
 </script>
 </body>
