@@ -59,12 +59,15 @@
 	// 	console.log(e.target)
 	// })
 	box.addEventListener('touchstart',function(e){
+		e.preventDefault();
 		console.log(e.touches)
 	})
 	box.addEventListener('touchmove',function(e){
+		e.preventDefault();
 		box.innerHTML=e.targetTouches.length
 	})
 	box.addEventListener('touchend',function(e){
+		e.preventDefault();
 		console.log(e.changedTouches.length)
 	})
 
